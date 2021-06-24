@@ -1,0 +1,194 @@
+*
+    box-sizing: border-box
+
+/* montserrat-100 - latin */
+@font-face
+    font-family: 'Montserrat'
+    font-style: normal
+    font-weight: 100
+    src: url('./assets/fonts/montserrat-v15-latin-100.woff2') format('woff2'), url('./assets/fonts/montserrat-v15-latin-100.woff') format('woff')
+
+/* montserrat-300 - latin */
+
+    &
+        font-family: 'Montserrat'
+        font-style: normal
+        font-weight: 300
+        src: url('./assets/fonts/montserrat-v15-latin-300.woff2') format('woff2'), url('./assets/fonts/montserrat-v15-latin-300.woff') format('woff')
+
+/* montserrat-regular - latin */
+
+    &
+        font-family: 'Montserrat'
+        font-style: normal
+        font-weight: 400
+        src: url('./assets/fonts/montserrat-v15-latin-regular.woff2') format('woff2'), url('./assets/fonts/montserrat-v15-latin-regular.woff') format('woff')
+
+/* montserrat-500 - latin */
+
+    &
+        font-family: 'Montserrat'
+        font-style: normal
+        font-weight: 500
+        src: url('./assets/fonts/montserrat-v15-latin-500.woff2') format('woff2'), url('./assets/fonts/montserrat-v15-latin-500.woff') format('woff')
+
+/* montserrat-600 - latin */
+
+    &
+        font-family: 'Montserrat'
+        font-style: normal
+        font-weight: 600
+        src: url('./assets/fonts/montserrat-v15-latin-600.woff2') format('woff2'), url('./assets/fonts/montserrat-v15-latin-600.woff') format('woff')
+
+/* montserrat-700 - latin */
+
+    &
+        font-family: 'Montserrat'
+        font-style: normal
+        font-weight: 700
+        src: url('./assets/fonts/montserrat-v15-latin-700.woff2') format('woff2'), url('./assets/fonts/montserrat-v15-latin-700.woff') format('woff')
+
+/* montserrat-800 - latin */
+
+    &
+        font-family: 'Montserrat'
+        font-style: normal
+        font-weight: 800
+        src: url('./assets/fonts/montserrat-v15-latin-800.woff2') format('woff2'), url('./assets/fonts/montserrat-v15-latin-800.woff') format('woff')
+
+html
+    height: 100%
+
+body
+    height: 100%
+    font-size: 1rem
+    font-family: "Montserrat", sans-serif
+    line-height: 1.5
+    overflow: auto
+
+main
+    column-gap: 2rem
+    margin: 0 2rem
+
+p,
+li,
+h1,
+h2,
+h3,
+h4
+  // Help prevent overflow of long words/names/URLs
+    word-break: break-word
+    hyphens: auto
+    margin-top: 0
+
+.box
+    border-radius: 6px
+    box-shadow: 0 0.5em 1em -0.125em rgb(10 10 10 / 10%), 0 0 0 1px rgb(10 10 10 / 2%)
+    color: #4a4a4a
+    flex: 50%
+    padding: 1.25rem
+
+.flex
+    display: flex
+
+.flex-col
+    display: flex
+    flex-direction: column
+
+.all-center
+    justify-content: center
+    align-items: center
+
+.text-center
+    text-align: center
+
+.task-section
+    flex: 80%
+
+.ghost-input
+    display: block
+    font-weight: 300
+    width: 100%
+    font-size: 1rem
+    border: 0px
+    outline: none
+    width: 100%
+    -webkit-box-sizing: border-box
+    -moz-box-sizing: border-box
+    box-sizing: border-box
+    color: #4b545f
+    background: #fff
+    font-family: "Montserrat", sans-serif
+    padding: 10px 15px
+    -webkit-transition: all 0.1s ease-in-out
+    -moz-transition: all 0.1s ease-in-out
+    -ms-transition: all 0.1s ease-in-out
+    -o-transition: all 0.1s ease-in-out
+    transition: all 0.1s ease-in-out
+
+    &:focus
+        border-bottom: 1px solid #ddd
+
+.input-group
+    display: flex
+    flex: 50%
+    align-items: center
+    justify-content: flex-start
+    margin: 0
+
+    label
+        padding-right: 0.5rem
+
+.radio-header
+    padding-right: 1rem
+    font-weight: 600
+
+.radio-field
+    align-items: baseline
+
+.ghost-button
+    align-self: center
+    background-color: transparent
+    border: 2px solid #ddd
+    padding: 10px 30px
+    min-width: 30%
+    max-width: 40%
+    margin-top: 1rem
+    -webkit-transition: all 0.1s ease-in-out
+    -moz-transition: all 0.1s ease-in-out
+    -ms-transition: all 0.1s ease-in-out
+    -o-transition: all 0.1s ease-in-out
+    transition: all 0.1s ease-in-out
+
+    &:hover
+        border: 2px solid #515151
+
+.sidebar
+    flex: 25%
+    font-size: 1rem
+
+    .sidebar-nav
+        list-style: none
+        margin: 0
+        padding: 0
+
+        li:not(:first-child)
+
+            margin-top: 1rem
+
+        a
+            border-radius: 2px
+            color: #4a4a4a
+            display: block
+            padding: .5em .75em
+            cursor: pointer
+            text-decoration: none
+
+            &:hover
+                background-color: #f5f5f5
+                color: #363636
+
+        .active
+            a
+                background-color: #485fc7
+                color: #fff
