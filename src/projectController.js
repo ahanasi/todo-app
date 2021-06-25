@@ -1,4 +1,4 @@
-import Project from "./project";
+import PubSub from "./pubsub";
 
 const projects = [];
 
@@ -8,6 +8,7 @@ const getAllProjects = () => {
 
 const addProject = (newProject) => {
   projects.push(newProject);
+  PubSub.publish("refreshProjects", projects);
 };
 
 const removeProject = (index) => {
@@ -18,4 +19,4 @@ const getProject = (index) => {
   return projects[index];
 };
 
-export default { getAllProjects, getProject, addProject };
+export default { getAllProjects, getProject, addProject, removeProject, projects };
