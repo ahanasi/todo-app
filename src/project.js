@@ -1,3 +1,5 @@
+import PubSub from "./pubsub";
+
 export default class Project {
   constructor(name, todos = []) {
     this._name = name;
@@ -13,6 +15,7 @@ export default class Project {
   addToProject(newTodo) {
     const todos = this.getTodos();
     todos.push(newTodo);
+    PubSub.publish("refreshTasks", todos);
   }
 
   removeFromProject(index) {

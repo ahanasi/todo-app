@@ -85,7 +85,6 @@ h4
     border-radius: 6px
     box-shadow: 0 0.5em 1em -0.125em rgb(10 10 10 / 10%), 0 0 0 1px rgb(10 10 10 / 2%)
     color: #4a4a4a
-    flex: 50%
     padding: 1.25rem
 
 .hidden
@@ -105,8 +104,45 @@ h4
 .text-center
     text-align: center
 
+.selected
+    animation: slide-out 0.3s forwards
+    -webkit-animation: slide-out 0.3s forwards
+
+.dismiss
+    animation: slide-in 0.3s forwards
+    -webkit-animation: slide-in 0.3s forwards
+
+.visually-hidden
+    position: absolute
+    overflow: hidden
+    clip: rect(0 0 0 0)
+    width: 1px
+    height: 1px
+    margin: -1px
+    border: 0
+    padding: 0
+
+.page-header
+    margin: 1rem 2rem
+    align-items: center
+
+    .new-project-wrapper
+        column-gap: 1rem
+
+        .new-project-btn
+            background-color: white
+            margin: 0
+            min-width: 10rem
+            z-index: 1000
+
+        .project-form-wrapper
+            display: none
+            overflow: hidden
+            transform: translateX(100%)
+
 .task-section
     flex: 80%
+    align-items: center
     row-gap: 2rem
 
 .task-wrapper
@@ -210,3 +246,17 @@ h4
             a
                 background-color: #485fc7
                 color: #fff
+
+@keyframes slide-in
+    0%
+        transform: translateX(0%)
+
+    100%
+        transform: translateX(-100%)
+
+@keyframes slide-out
+    0%
+        transform: translateX(-50%)
+
+    100%
+        transform: translateX(0%)

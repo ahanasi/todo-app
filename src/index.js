@@ -1,7 +1,12 @@
+import PubSub from "./pubsub";
+import DomStuff from "./domStuff";
 import "./projectView";
-import TodoForm from "./todoForm";
-import Project from "./project";
+import "./todoView";
 import ProjectController from "./projectController";
+import Todo from "./todo";
+import todoForm from "./todoForm";
+import projectForm from "./projectForm";
+import Project from "./project";
 import "./style.sass";
 
 const skeletonLoad = (() => {
@@ -9,19 +14,33 @@ const skeletonLoad = (() => {
   const taskSection = document.createElement("section");
   const todoWrapper = document.createElement("div");
   const header = document.createElement("header");
-  const pageTitle = document.createElement("h1");
   const aside = document.createElement("aside");
+  const newProjectWrapper = document.createElement("div");
+  const newProjectBtn = document.createElement("button");
+  const projectFormWrapper = projectForm();
 
+  header.classList.add("page-header", "flex");
+  newProjectBtn.classList.add("new-project-btn", "ghost-button");
   mainContentDiv.classList.add("flex");
-  taskSection.classList.add("task-section", "flex-col", "all-center");
+  taskSection.classList.add("task-section", "flex-col");
   todoWrapper.classList.add("task-wrapper", "flex-col");
   aside.classList.add("sidebar");
+  newProjectWrapper.classList.add("new-project-wrapper", "flex");
 
-  pageTitle.classList.add("text-center");
-  pageTitle.textContent = "Task List";
+  newProjectBtn.textContent = "New Project";
+  newProjectBtn.addEventListener("click", (e) => {
+    if (projectFormWrapper.classList.contains("dismiss")) {
+      DomStuff.showProjectForm(projectFormWrapper);
+    } else {
+      DomStuff.hideProjectForm(projectFormWrapper);
+    }
+    e.preventDefault();
+  });
 
-  header.append(pageTitle);
-  taskSection.append(TodoForm(), todoWrapper);
+  newProjectWrapper.append(newProjectBtn, projectFormWrapper);
+
+  header.append(newProjectWrapper);
+  taskSection.append(todoForm(), todoWrapper);
 
   mainContentDiv.append(aside, taskSection);
 
@@ -29,14 +48,23 @@ const skeletonLoad = (() => {
 })();
 
 const defaultProject = new Project("Default");
-ProjectController.addProject(defaultProject);
+PubSub.publish("addProjectToModel", defaultProject);
 
-// let testProjects = ["Inbox", "Today", "Important"];
-// testProjects.forEach((p) => {
-//   const newProject = new Project(p);
-//   ProjectController.addProject(newProject);
-// });
+const secondProject = new Project("Second");
+PubSub.publish("addProjectToModel", secondProject);
 
-// const defaultProject = ProjectController.getProject(0);
-// const newTodo = new Todo("Title", "Desc", 2, new Date());
-// defaultProject.addToProject(newTodo);
+let testProjects = ["Inbox", "Today", "Important"];
+testProjects.forEach((p) => {
+  const newProject = new Project(p);
+  PubSub.publish("addProjectToModel", newProject);
+});
+
+const newTodo1 = new Todo("Title", "Desc", 2, new Date());
+const newTodo2 = new Todo("Title", "Desc", 2, new Date());
+const newTodo3 = new Todo("Title", "Desc", 2, new Date());
+
+PubSub.publish("changeCurrentProject", 0);
+
+defaultProject.addToProject(newTodo1);
+defaultProject.addToProject(newTodo2);
+defaultProject.addToProject(newTodo3);

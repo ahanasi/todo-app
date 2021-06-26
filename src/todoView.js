@@ -1,7 +1,8 @@
-import Todo from "./todo";
 import { format } from "date-fns";
+import PubSub from "./pubsub";
 
-const todoDisplay = (todo) => {
+const todoDisplay = ([todo, index]) => {
+  const todoWrapper = document.querySelector(".task-wrapper");
   const todoBox = document.createElement("div");
   todoBox.classList.add("box", "flex", "todo-item");
 
@@ -12,8 +13,11 @@ const todoDisplay = (todo) => {
   todoDate.textContent = format(new Date(), "MMM dd");
 
   todoBox.append(todoTitle, todoDate);
+  todoBox.setAttribute("data-index", index);
 
-  return todoBox;
+  todoWrapper.append(todoBox);
 };
 
-export default todoDisplay;
+const todoDisplaysSub = PubSub.subscribe("displayTask", todoDisplay);
+
+export default todoDisplaysSub;

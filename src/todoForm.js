@@ -1,4 +1,5 @@
 import Todo from "./todo";
+import projectController from "./projectController";
 
 const todoForm = () => {
   const todoFormWrapper = document.createElement("section");
@@ -25,7 +26,14 @@ const todoForm = () => {
   // Create a form dynamically
   const form = document.createElement("form");
   form.setAttribute("name", "newTaskForm");
+  form.setAttribute("autocomplete", "off");
   form.classList.add("flex-col");
+
+  //Create label for task name
+  const taskNameLabel = document.createElement("label");
+  taskNameLabel.setAttribute("for", "taskName");
+  taskNameLabel.textContent = "Task Name";
+  taskNameLabel.classList.add("visually-hidden");
 
   // Create an input element for task name
   const taskName = document.createElement("input");
@@ -33,6 +41,12 @@ const todoForm = () => {
   taskName.setAttribute("type", "text");
   taskName.setAttribute("name", "taskName");
   taskName.setAttribute("placeholder", "New To-Do");
+
+  //Create label for task description
+  const taskDescLabel = document.createElement("label");
+  taskDescLabel.setAttribute("for", "taskDesc");
+  taskDescLabel.textContent = "Task Description";
+  taskDescLabel.classList.add("visually-hidden");
 
   // Create an input element for task description
   const taskDesc = document.createElement("textarea");
@@ -61,7 +75,8 @@ const todoForm = () => {
   const inputGroup = document.createElement("div");
   const radioWrapper = document.createElement("div");
   const dateWrapper = document.createElement("div");
-  const radioHeader = document.createElement("div");
+  const radioHeader = document.createElement("label");
+  radioHeader.setAttribute("for", "taskPriority");
 
   //Create Submit Button
   const submitBtn = document.createElement("input");
@@ -73,7 +88,8 @@ const todoForm = () => {
     const formData = new FormData(form);
     const params = [...formData.values()];
     const todo = new Todo(params[0], params[1], params[2], params[3]);
-    console.log(todo);
+    projectController.getCurrentProject().addToProject(todo);
+    form.reset();
   });
 
   dateWrapper.classList.add("input-group");
@@ -86,7 +102,7 @@ const todoForm = () => {
   inputGroup.append(radioWrapper, dateWrapper);
   inputGroup.classList.add("ghost-input", "input-group", "flex");
 
-  form.append(taskName, taskDesc, inputGroup, submitBtn);
+  form.append(taskNameLabel, taskName, taskDescLabel, taskDesc, inputGroup, submitBtn);
 
   todoFormWrapper.append(form);
 
