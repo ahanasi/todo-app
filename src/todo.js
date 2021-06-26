@@ -3,7 +3,7 @@ export default class Todo {
     this._title = title;
     this._desc = desc;
     this._priority = priority;
-    this._dueDate = new Date(dueDate) || null;
+    this._dueDate = dueDate || null;
     this._isComplete = isComplete || false;
 
     this.getTitle = () => this._title;
@@ -13,7 +13,7 @@ export default class Todo {
     this.setDesc = (newDesc) => (this._desc = newDesc);
 
     this.getDate = () => this._dueDate;
-    this.setDate = (newDate) => (this._dueDate = new Date(newDate));
+    this.setDate = (newDate) => (this._dueDate = newDate);
 
     this.getPriority = () => this._priority;
     this.setPriority = (newPriority) => (this._priority = newPriority);

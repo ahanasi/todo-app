@@ -1,4 +1,6 @@
 import { format } from "date-fns";
+import "@fortawesome/fontawesome-free/js/fontawesome";
+import { faFontAwesomeFlag } from "@fortawesome/fontawesome-free/js/brands";
 import PubSub from "./pubsub";
 
 const todoDisplay = ([todo, index]) => {
@@ -10,7 +12,7 @@ const todoDisplay = ([todo, index]) => {
   const todoDate = document.createElement("p");
 
   todoTitle.textContent = todo.title;
-  todoDate.textContent = format(new Date(), "MMM dd");
+  todoDate.innerHTML = `<i class="fab fa-font-awesome-flag"></i> <strong>${format(new Date(todo.dueDate), "MMM dd")}</strong>`;
 
   todoBox.append(todoTitle, todoDate);
   todoBox.setAttribute("data-index", index);

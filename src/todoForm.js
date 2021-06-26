@@ -87,8 +87,8 @@ const todoForm = () => {
     e.preventDefault();
     const formData = new FormData(form);
     const params = [...formData.values()];
-    const todo = new Todo(params[0], params[1], params[2], params[3]);
-    projectController.getCurrentProject().addToProject(todo);
+    const newTodo = new Todo(params[0], params[1], params[2], params[3]);
+    projectController.getCurrentProject().addToProject(newTodo);
     form.reset();
   });
 
@@ -100,7 +100,7 @@ const todoForm = () => {
   radioWrapper.append(radioHeader, radioField1, radioField2, radioField3);
   dateWrapper.append(dateLabel, taskDate);
   inputGroup.append(radioWrapper, dateWrapper);
-  inputGroup.classList.add("ghost-input", "input-group", "flex");
+  inputGroup.classList.add("form-control","ghost-input", "input-group");
 
   form.append(taskNameLabel, taskName, taskDescLabel, taskDesc, inputGroup, submitBtn);
 
