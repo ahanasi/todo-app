@@ -60,7 +60,7 @@ testProjects.forEach((p) => {
 });
 
 const newTodo1 = new Todo("Title", "Desc", 2, new Date());
-const newTodo2 = new Todo("Title", "Desc", 2, new Date());
+const newTodo2 = new Todo("Title", "Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc ", 2, new Date());
 const newTodo3 = new Todo("Title", "Desc", 2, new Date());
 
 PubSub.publish("changeCurrentProject", 0);

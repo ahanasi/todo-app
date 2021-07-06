@@ -149,18 +149,39 @@ h4
         padding: 0.5rem
 
 .task-wrapper
-    width: 80%
-    min-width: 80%
-    row-gap: 1rem
+    width: 74%
+    min-width: 70%
+    row-gap: 0.5rem
 
     .todo-item
         display: flex
+        z-index: 1000
         column-gap: 0.5rem
         justify-content: space-between
         padding: 0 0.5rem
+        height: 3rem
+        overflow: hidden
+        transition: height 0.2s ease
+
+        &:hover
+            cursor: pointer
 
         p:first-of-type
             flex: 1 2 90%
+
+.todo-item.todo-expanded
+    height: fit-content
+
+.todo-item.todo-unexpanded
+    height: 3rem
+
+.todo-unexpanded > .todo-desc
+    opacity: 0
+    animation: unreveal 0.2s ease
+
+.todo-expanded > .todo-desc
+    opacity: 1
+    animation: reveal 0.2s ease
 
 .ghost-input
     display: block
@@ -265,3 +286,22 @@ h4
 
     100%
         transform: translateX(0%)
+
+
+@keyframes reveal
+    0%
+        opacity: 0
+        transform: translateY(-20px)
+
+    100%
+        opacity: 1
+        transform: translateY(0)
+
+@keyframes unreveal
+    0%
+        opacity: 1
+        transform: translateY(0)
+
+    100%
+        opacity: 0
+        transform: translateY(-20px)
