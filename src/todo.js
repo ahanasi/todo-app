@@ -2,7 +2,7 @@ export default class Todo {
   constructor(title, desc, priority, dueDate, isComplete) {
     this._title = title;
     this._desc = desc;
-    this._priority = priority;
+    this._priority = priority || 0;
     this._dueDate = dueDate || null;
     this._isComplete = isComplete || false;
 

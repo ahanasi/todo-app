@@ -12,8 +12,11 @@ const todoDisplay = ([todo, index]) => {
   const todoDate = document.createElement("p");
 
   todoTitle.textContent = todo.title;
-  todoDate.innerHTML = `<i class="fab fa-font-awesome-flag"></i> <strong>${format(new Date(todo.dueDate), "MMM dd")}</strong>`;
-
+  if (todo.dueDate) {
+    const dt = new Date(todo.dueDate);
+    const dtDateOnly = new Date(dt.valueOf() + dt.getTimezoneOffset() * 60 * 1000);
+    todoDate.innerHTML = `<i class="fab fa-font-awesome-flag"></i> <strong>${format(dtDateOnly, "MMM dd")}</strong>`;
+  }
   todoBox.append(todoTitle, todoDate);
   todoBox.setAttribute("data-index", index);
 
