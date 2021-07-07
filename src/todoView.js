@@ -7,11 +7,20 @@ const todoDisplay = ([todo, index]) => {
   const todoWrapper = document.querySelector(".task-wrapper");
   const todoBox = document.createElement("div");
   const todoHeader = document.createElement("header");
-  const todoTitle = document.createElement("p");
+  const todoTitle = document.createElement("label");
   const todoDate = document.createElement("p");
   const todoDesc = document.createElement("p");
+  const todoCheckbox = document.createElement("input");
+  const checkmark = document.createElement("span");
+
+  todoCheckbox.type = "checkbox";
+  todoCheckbox.id = `todo_${index}`;
+
+  todoTitle.setAttribute("for", `todo_${index}`);
+  todoTitle.setAttribute("data-content", todo.title);
 
   todoBox.classList.add("flex-col", "todo-item");
+  todoDate.classList.add("todo-date");
   todoHeader.classList.add("flex");
   todoDesc.classList.add("todo-desc");
 
@@ -24,7 +33,7 @@ const todoDisplay = ([todo, index]) => {
 
   todoDesc.textContent = todo.desc;
 
-  todoHeader.append(todoTitle, todoDate);
+  todoHeader.append(todoCheckbox, todoTitle, checkmark, todoDate);
   todoBox.append(todoHeader, todoDesc);
 
   todoBox.addEventListener("dblclick", () => {
