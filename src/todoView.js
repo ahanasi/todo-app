@@ -1,6 +1,7 @@
 import { format } from "date-fns";
 import "@fortawesome/fontawesome-free/js/fontawesome";
 import { faFontAwesomeFlag } from "@fortawesome/fontawesome-free/js/brands";
+import { faFontAwesomeTrash, faFontAwesomeEdit } from "@fortawesome/fontawesome-free/js/solid";
 import PubSub from "./pubsub";
 
 const todoDisplay = ([todo, index]) => {
@@ -12,9 +13,25 @@ const todoDisplay = ([todo, index]) => {
   const todoDesc = document.createElement("p");
   const todoCheckbox = document.createElement("input");
   const checkmark = document.createElement("span");
+  const todoFooter = document.createElement("footer");
+  const deleteBtn = document.createElement("div");
+  const editBtn = document.createElement("div");
+
+  deleteBtn.classList.add("todo-action");
+  editBtn.classList.add("todo-action");
+  deleteBtn.innerHTML = `<i class="fas fa-trash"></i>
+  `;
+  editBtn.innerHTML = `<i class="fas fa-edit"></i>
+  `;
+  deleteBtn.addEventListener("click", (todo) => {
+    PubSub.publish("removeTodoFromProject", index);
+  });
 
   todoCheckbox.type = "checkbox";
   todoCheckbox.id = `todo_${index}`;
+  todoCheckbox.addEventListener("click", () => {
+    handleCheck(todoCheckbox, todo);
+  });
 
   todoTitle.setAttribute("for", `todo_${index}`);
   todoTitle.setAttribute("data-content", todo.title);
@@ -22,6 +39,7 @@ const todoDisplay = ([todo, index]) => {
   todoBox.classList.add("flex-col", "todo-item");
   todoDate.classList.add("todo-date");
   todoHeader.classList.add("flex");
+  todoFooter.classList.add("flex");
   todoDesc.classList.add("todo-desc");
 
   todoTitle.textContent = todo.title;
@@ -34,12 +52,11 @@ const todoDisplay = ([todo, index]) => {
   todoDesc.textContent = todo.desc;
 
   todoHeader.append(todoCheckbox, todoTitle, checkmark, todoDate);
-  todoBox.append(todoHeader, todoDesc);
-
+  todoFooter.append(editBtn,deleteBtn);
+  todoBox.append(todoHeader, todoDesc, todoFooter);
   todoBox.addEventListener("dblclick", () => {
     expandCard(todoBox);
   });
-
   todoBox.setAttribute("data-index", index);
 
   todoWrapper.append(todoBox);
@@ -49,16 +66,16 @@ const expandCard = (card) => {
   card.classList.toggle("todo-expanded");
   card.classList.toggle("box");
 
-  // If card is not expanded after toggle, add 'unexpanded' class
   if (!card.classList.contains("todo-expanded")) {
     card.classList.toggle("todo-unexpanded");
     card.classList.remove("box");
-  }
-
-  // Else if card is expanded after toggle and still contains 'unexpanded' class, remove 'unexpanded'
-  else if (card.classList.contains("todo-expanded") && card.classList.contains("todo-unexpanded")) {
+  } else if (card.classList.contains("todo-expanded") && card.classList.contains("todo-unexpanded")) {
     card.classList.toggle("todo-unexpanded");
   }
+};
+
+const handleCheck = (checkbox, todo) => {
+  todo.setComplete(checkbox.checked);
 };
 
 const todoDisplaysSub = PubSub.subscribe("displayTask", todoDisplay);
