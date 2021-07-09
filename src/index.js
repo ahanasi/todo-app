@@ -18,6 +18,7 @@ const skeletonLoad = (() => {
   const newProjectWrapper = document.createElement("div");
   const newProjectBtn = document.createElement("button");
   const projectFormWrapper = projectForm();
+  const overlay = document.createElement("div");
 
   header.classList.add("page-header", "flex");
   newProjectBtn.classList.add("new-project-btn", "ghost-button");
@@ -26,6 +27,7 @@ const skeletonLoad = (() => {
   todoWrapper.classList.add("task-wrapper", "flex-col");
   aside.classList.add("sidebar");
   newProjectWrapper.classList.add("new-project-wrapper", "flex");
+  overlay.classList.add("overlay");
 
   newProjectBtn.textContent = "New Project";
   newProjectBtn.addEventListener("click", (e) => {
@@ -38,9 +40,8 @@ const skeletonLoad = (() => {
   });
 
   newProjectWrapper.append(newProjectBtn, projectFormWrapper);
-
   header.append(newProjectWrapper);
-  taskSection.append(todoForm(), todoWrapper);
+  taskSection.append(overlay, todoForm(), todoWrapper);
 
   mainContentDiv.append(aside, taskSection);
 
@@ -59,9 +60,16 @@ testProjects.forEach((p) => {
   PubSub.publish("addProjectToModel", newProject);
 });
 
-const newTodo1 = new Todo("Title", "Desc", 2, new Date());
-const newTodo2 = new Todo("Title", "Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc ", 2, new Date());
-const newTodo3 = new Todo("Title", "Desc", 2, new Date());
+const fakeDate = new Date();
+
+const newTodo1 = new Todo("Title", "Desc", 2, fakeDate.toISOString().slice(0, 10));
+const newTodo2 = new Todo(
+  "Title",
+  "Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc ",
+  2,
+  fakeDate.toISOString().slice(0, 10)
+);
+const newTodo3 = new Todo("Title", "Desc", 2, fakeDate.toISOString().slice(0, 10));
 
 PubSub.publish("changeCurrentProject", 0);
 

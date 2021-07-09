@@ -61,4 +61,11 @@ export default class Todo {
   set isComplete(newComplete) {
     return this.setComplete(newComplete);
   }
+
+  modify(newTitle,newDesc,newPriority,newDueDate){
+    this.title = newTitle;
+    this.desc = newDesc;
+    this.priority = newPriority;
+    this.dueDate = newDueDate;
+  }
 }

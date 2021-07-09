@@ -1,4 +1,5 @@
 import { format } from "date-fns";
+import editForm from "./editTodoForm";
 import "@fortawesome/fontawesome-free/js/fontawesome";
 import { faFontAwesomeFlag } from "@fortawesome/fontawesome-free/js/brands";
 import { faFontAwesomeTrash, faFontAwesomeEdit } from "@fortawesome/fontawesome-free/js/solid";
@@ -16,6 +17,7 @@ const todoDisplay = ([todo, index]) => {
   const todoFooter = document.createElement("footer");
   const deleteBtn = document.createElement("div");
   const editBtn = document.createElement("div");
+  const overlay = document.querySelector(".overlay");
 
   deleteBtn.classList.add("todo-action");
   editBtn.classList.add("todo-action");
@@ -23,9 +25,18 @@ const todoDisplay = ([todo, index]) => {
   `;
   editBtn.innerHTML = `<i class="fas fa-edit"></i>
   `;
-  deleteBtn.addEventListener("click", (todo) => {
+
+  deleteBtn.addEventListener("click", () => {
     PubSub.publish("removeTodoFromProject", index);
   });
+
+  editBtn.addEventListener("click", () => {
+    const editFormWrapper = editForm(todo,index);
+    editFormWrapper.addEventListener("click", (e) => e.stopPropagation());
+    on(overlay, editFormWrapper);
+  });
+
+  overlay.addEventListener("click", () => off(overlay));
 
   todoCheckbox.type = "checkbox";
   todoCheckbox.id = `todo_${index}`;
@@ -52,7 +63,7 @@ const todoDisplay = ([todo, index]) => {
   todoDesc.textContent = todo.desc;
 
   todoHeader.append(todoCheckbox, todoTitle, checkmark, todoDate);
-  todoFooter.append(editBtn,deleteBtn);
+  todoFooter.append(editBtn, deleteBtn);
   todoBox.append(todoHeader, todoDesc, todoFooter);
   todoBox.addEventListener("dblclick", () => {
     expandCard(todoBox);
@@ -71,6 +82,22 @@ const expandCard = (card) => {
     card.classList.remove("box");
   } else if (card.classList.contains("todo-expanded") && card.classList.contains("todo-unexpanded")) {
     card.classList.toggle("todo-unexpanded");
+  }
+};
+
+const on = (overlay, editFormWrapper) => {
+  overlay.append(editFormWrapper);
+  overlay.style.display = "block";
+};
+
+const off = (overlay) => {
+  removeChildNodes(overlay);
+  overlay.style.display = "none";
+};
+
+const removeChildNodes = (parent) => {
+  while (parent.firstChild) {
+    parent.removeChild(parent.firstChild);
   }
 };
 

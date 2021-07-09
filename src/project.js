@@ -18,6 +18,12 @@ export default class Project {
     PubSub.publish("refreshTasks", todos);
   }
 
+  editTodo(index){
+    const todos = this.getTodos();
+    const todo = todos[index];
+    todo.modify();
+  }
+
   removeFromProject(index) {
     const i = index;
     const todos = this.getTodos();
