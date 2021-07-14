@@ -1,5 +1,5 @@
 import Todo from "./todo";
-import projectController from "./projectController";
+import PubSub from "./pubsub";
 
 const todoForm = () => {
   const todoFormWrapper = document.createElement("section");
@@ -88,7 +88,7 @@ const todoForm = () => {
     const formData = new FormData(form);
     const params = [...formData.values()];
     const newTodo = new Todo(params[0], params[1], params[2], params[3]);
-    projectController.getCurrentProject().addToProject(newTodo);
+    PubSub.publish("addTodoToProject",newTodo);
     form.reset();
   });
 

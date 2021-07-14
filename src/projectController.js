@@ -3,10 +3,6 @@ import PubSub from "./pubsub";
 const projects = [];
 let currentProject;
 
-const getAllProjects = PubSub.subscribe("getAllProjects", () => {
-  return projects;
-});
-
 const getCurrentProject = () => {
   return currentProject;
 };
@@ -22,6 +18,11 @@ const removeProject = PubSub.subscribe("removeProjectFromModel", (index) => {
   projects.splice(index, 1);
 });
 
+const addTodo = PubSub.subscribe("addTodoToProject", (todo) => {
+  currentProject.addToProject(todo);
+  PubSub.publish("refreshTasks", currentProject.getTodos());
+});
+
 const removeTodo = PubSub.subscribe("removeTodoFromProject", (index) => {
   currentProject.removeFromProject(index);
   PubSub.publish("refreshTasks", currentProject.getTodos());
@@ -33,4 +34,4 @@ const changeCurrentProject = PubSub.subscribe("changeCurrentProject", (index) =>
   PubSub.publish("refreshTasks", currentProject.getTodos());
 });
 
-export default { addProject, removeProject, getAllProjects, changeCurrentProject, removeTodo, getCurrentProject };
+export default { addProject, removeProject, changeCurrentProject, removeTodo, addTodo, getCurrentProject };
