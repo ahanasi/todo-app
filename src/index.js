@@ -19,6 +19,7 @@ const skeletonLoad = (() => {
   const newProjectWrapper = document.createElement("div");
   const newProjectBtn = document.createElement("button");
   const projectFormWrapper = projectForm();
+  const deleteProjectWrapper = document.createElement("div");
   const overlay = document.createElement("div");
 
   header.classList.add("page-header", "flex");
@@ -29,6 +30,7 @@ const skeletonLoad = (() => {
   aside.classList.add("sidebar");
   newProjectWrapper.classList.add("new-project-wrapper", "flex");
   overlay.classList.add("overlay");
+  deleteProjectWrapper.classList.add("del-project-wrapper", "flex");
 
   newProjectBtn.textContent = "New Project";
   newProjectBtn.addEventListener("click", (e) => {
@@ -40,8 +42,13 @@ const skeletonLoad = (() => {
     e.preventDefault();
   });
 
+  deleteProjectWrapper.innerHTML = `<a href="#">Delete Project?</a>`;
+  deleteProjectWrapper.addEventListener("click", () => {
+    PubSub.publish("removeProjectFromModel");
+  })
+
   newProjectWrapper.append(newProjectBtn, projectFormWrapper);
-  header.append(newProjectWrapper);
+  header.append(newProjectWrapper, deleteProjectWrapper);
   taskSection.append(overlay, todoForm(), todoWrapper);
 
   mainContentDiv.append(aside, taskSection);
