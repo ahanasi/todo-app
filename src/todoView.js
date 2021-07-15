@@ -52,6 +52,13 @@ const todoDisplay = ([todo, index]) => {
   todoTitle.setAttribute("data-content", todo.title);
 
   todoBox.classList.add("flex-col", "todo-item");
+  if (todo.priority == 1) {
+    todoBox.classList.add("low");
+  } else if (todo.priority == 2) {
+    todoBox.classList.add("medium");
+  } else if (todo.priority == 3) {
+    todoBox.classList.add("high");
+  }
   todoDate.classList.add("todo-date");
   todoHeader.classList.add("flex");
   todoFooter.classList.add("flex");

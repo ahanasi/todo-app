@@ -2,8 +2,10 @@ $black: #363839
 $lightgray: #9c9e9f
 $gray: #bdc1c6
 $white: #fff
-$green: #06842c
+$green: #cef6da
 $blue: #485fc7
+$red: #fdd3d3
+$yellow: #fff9ad
 
 *
     box-sizing: border-box
@@ -119,6 +121,15 @@ h4
     animation: slide-in 0.3s forwards
     -webkit-animation: slide-in 0.3s forwards
 
+.high
+    background-color: $red
+
+.medium
+    background-color: $yellow
+
+.low
+    background-color: $green
+
 .visually-hidden
     position: absolute
     overflow: hidden
@@ -132,6 +143,7 @@ h4
 .page-header
     margin: 1rem 2rem
     align-items: center
+    justify-content: space-between
 
     .new-project-wrapper
         column-gap: 1rem
@@ -146,6 +158,20 @@ h4
             display: none
             overflow: hidden
             transform: translateX(100%)
+
+    .del-project-wrapper
+
+        a
+            font-size: 1rem
+            color: #7c7c7c94
+            cursor: pointer
+            text-decoration: none
+
+            &:hover
+                color: #202020
+
+            &:visited
+                color: #4a4a4a
 
 .task-section
     flex: 80%
