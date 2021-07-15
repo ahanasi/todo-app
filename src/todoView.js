@@ -31,7 +31,7 @@ const todoDisplay = ([todo, index]) => {
   });
 
   editBtn.addEventListener("click", () => {
-    const editFormWrapper = editForm(todo,index);
+    const editFormWrapper = editForm(todo, index);
     editFormWrapper.addEventListener("click", (e) => e.stopPropagation());
     on(overlay, editFormWrapper);
   });
@@ -40,9 +40,13 @@ const todoDisplay = ([todo, index]) => {
 
   todoCheckbox.type = "checkbox";
   todoCheckbox.id = `todo_${index}`;
+  if (todo._isComplete) {
+    todoCheckbox.setAttribute("checked", true);
+  }
   todoCheckbox.addEventListener("click", () => {
     handleCheck(todoCheckbox, todo);
   });
+  debugger;
 
   todoTitle.setAttribute("for", `todo_${index}`);
   todoTitle.setAttribute("data-content", todo.title);
@@ -103,6 +107,7 @@ const removeChildNodes = (parent) => {
 
 const handleCheck = (checkbox, todo) => {
   todo.setComplete(checkbox.checked);
+  PubSub.publish("changeTodoStatus");
 };
 
 const todoDisplaysSub = PubSub.subscribe("displayTask", todoDisplay);

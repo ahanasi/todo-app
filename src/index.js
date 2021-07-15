@@ -1,5 +1,6 @@
 import PubSub from "./pubsub";
 import DomStuff from "./domStuff";
+import "./localStorage";
 import "./projectView";
 import "./todoView";
 import ProjectController from "./projectController";
@@ -48,31 +49,34 @@ const skeletonLoad = (() => {
   document.body.append(header, mainContentDiv);
 })();
 
-const defaultProject = new Project("Default");
-PubSub.publish("addProjectToModel", defaultProject);
+const populateStorage = () => {
+  // Add default projects and dummy todos here
+  let testProjects = ["Inbox", "Today", "Important"];
+  testProjects.forEach((p) => {
+    const newProject = new Project(p);
+    PubSub.publish("addProjectToModel", newProject);
+  });
 
-const secondProject = new Project("Second");
-PubSub.publish("addProjectToModel", secondProject);
+  const fakeDate = new Date();
 
-let testProjects = ["Inbox", "Today", "Important"];
-testProjects.forEach((p) => {
-  const newProject = new Project(p);
-  PubSub.publish("addProjectToModel", newProject);
-});
+  const newTodo1 = new Todo("Title", "Desc", 2, fakeDate.toISOString().slice(0, 10));
 
-const fakeDate = new Date();
+  PubSub.publish("changeCurrentProject", 0);
+  PubSub.publish("addTodoToProject", newTodo1);
+};
 
-const newTodo1 = new Todo("Title", "Desc", 2, fakeDate.toISOString().slice(0, 10));
-const newTodo2 = new Todo(
-  "Title",
-  "Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc Desc ",
-  2,
-  fakeDate.toISOString().slice(0, 10)
-);
-const newTodo3 = new Todo("Title", "Desc", 2, fakeDate.toISOString().slice(0, 10));
-
-PubSub.publish("changeCurrentProject", 0);
-
-defaultProject.addToProject(newTodo1);
-defaultProject.addToProject(newTodo2);
-defaultProject.addToProject(newTodo3);
+if (!localStorage.getItem("allProjects")) {
+  populateStorage();
+} else {
+  JSON.parse(localStorage.getItem("allProjects")).forEach((project) => {
+    const newProject = new Project(project._name);
+    console.log(newProject);
+    PubSub.publish("addProjectToModel", newProject);
+    if (project._todos) {
+      project._todos.forEach((todo, i) => {
+        const newTodo = new Todo(todo._title, todo._desc, todo._priority, todo._dueDate, todo._isComplete);
+        PubSub.publish("addTodoToProject", newTodo);
+      });
+    }
+  });
+}

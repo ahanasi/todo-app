@@ -1,4 +1,3 @@
-import Todo from "./todo";
 import PubSub from "./pubsub";
 import projectController from "./projectController";
 
