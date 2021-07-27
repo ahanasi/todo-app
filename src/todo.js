@@ -5,64 +5,49 @@ export default class Todo {
     this._priority = priority || 0;
     this._dueDate = dueDate || null;
     this._isComplete = isComplete || false;
-
-    this.getTitle = () => this._title;
-    this.setTitle = (newTitle) => (this._title = newTitle);
-
-    this.getDesc = () => this._desc;
-    this.setDesc = (newDesc) => (this._desc = newDesc);
-
-    this.getDate = () => this._dueDate;
-    this.setDate = (newDate) => (this._dueDate = newDate);
-
-    this.getPriority = () => this._priority;
-    this.setPriority = (newPriority) => (this._priority = newPriority);
-
-    this.getComplete = () => this._isComplete;
-    this.setComplete = (newComplete) => (this._isComplete = newComplete);
   }
 
   get title() {
-    return this.getTitle();
+    return this._title;
   }
 
   set title(newTitle) {
-    return this.setTitle(newTitle);
+    this._title = newTitle;
   }
 
   get desc() {
-    return this.getDesc();
+    return this._desc;
   }
 
   set desc(newDesc) {
-    return this.setDesc(newDesc);
+    this._desc = newDesc;
   }
 
   get dueDate() {
-    return this.getDate();
+    return this._dueDate;
   }
 
   set dueDate(newDate) {
-    return this.setDate(newDate);
+    this._dueDate = newDate;
   }
 
   get priority() {
-    return this.getPriority();
+    return this._priority;
   }
 
   set priority(newPriority) {
-    return this.setPriority(newPriority);
+    this._priority = newPriority;
   }
 
   get isComplete() {
-    return this.getComplete();
+    return this._isComplete;
   }
 
   set isComplete(newComplete) {
-    return this.setComplete(newComplete);
+    this._isComplete = newComplete;
   }
 
-  modify(newTitle,newDesc,newPriority,newDueDate){
+  modify(newTitle, newDesc, newPriority, newDueDate) {
     this.title = newTitle;
     this.desc = newDesc;
     this.priority = newPriority;

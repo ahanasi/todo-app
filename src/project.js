@@ -1,38 +1,48 @@
-import PubSub from "./pubsub";
+import PubSub from './pubsub';
 
 export default class Project {
   constructor(name, todos = []) {
     this._name = name;
     this._todos = todos;
+  }
 
-    this.getName = () => this._name;
-    this.setName = (newName) => (this._name = newName);
+  get name() {
+    return this._name;
+  }
 
-    this.getTodos = () => this._todos;
-    this.setTodos = (newTodos) => (this._todos = newTodos);
+  set name(newName) {
+    this._name = newName;
+  }
+
+  get todos() {
+    return this._todos;
+  }
+
+  set todos(newTodos) {
+    this._todos = newTodos;
   }
 
   addToProject(newTodo) {
-    const todos = this.getTodos();
+    const { todos } = this;
     todos.push(newTodo);
-    PubSub.publish("refreshTasks", todos);
+    PubSub.publish('refreshTasks', todos);
   }
 
-  editTodo(index){
-    const todos = this.getTodos();
+  editTodo(index) {
+    const { todos } = this;
     const todo = todos[index];
     todo.modify();
   }
 
   removeFromProject(index) {
     const i = index;
-    const todos = this.getTodos();
+    const { todos } = this;
 
     todos.splice(i, 1);
   }
 
-  changeName(name) {
-    const projectName = this.getName();
-    projectName.setName(name);
+  changeName(newName) {
+    const projectName = this.name;
+    projectName.name(newName);
   }
 }
