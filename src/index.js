@@ -5,9 +5,11 @@ import './projectView';
 import './todoView';
 import './projectController';
 import Todo from './todo';
+import TodoPublic from './todoPublic';
 import todoForm from './todoForm';
 import projectForm from './projectForm';
 import Project from './project';
+import ProjectPublic from './projectPublic';
 import './style.sass';
 
 (() => {
@@ -76,16 +78,16 @@ if (!localStorage.getItem('allProjects')) {
   populateStorage();
 } else {
   JSON.parse(localStorage.getItem('allProjects')).forEach((project) => {
-    const newProject = new Project(project._name);
+    const newProject = new Project(project.name);
     PubSub.publish('addProjectToModel', newProject);
-    if (project._todos) {
-      project._todos.forEach((todo) => {
+    if (project.todos) {
+      project.todos.forEach((todo) => {
         const newTodo = new Todo(
-          todo._title,
-          todo._desc,
-          todo._priority,
-          todo._dueDate,
-          todo._isComplete
+          todo.title,
+          todo.desc,
+          todo.priority,
+          todo.dueDate,
+          todo.isComplete
         );
         PubSub.publish('addTodoToProject', newTodo);
       });
