@@ -7,6 +7,17 @@ const removeChildNodes = (parent) => {
   }
 };
 
+const isSelected = () => {
+  const rbs = document.querySelectorAll('input[name="editTaskPriority"]');
+  let selectedValue;
+  for (let i = 0; i < rbs.length; i++) {
+    if (rbs[i].checked) {
+      return true;
+    }
+  }
+  return false;
+};
+
 const editForm = (todo, index) => {
   const overlay = document.querySelector('.overlay');
   const todoFormWrapper = document.createElement('section');
@@ -98,9 +109,16 @@ const editForm = (todo, index) => {
   submitBtn.setAttribute('value', 'Edit Task');
   submitBtn.classList.add('ghost-button', 'text-center');
   submitBtn.addEventListener('click', (e) => {
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
     e.preventDefault();
     const formData = new FormData(form);
     const params = [...formData.values()];
+    if (!isSelected()) {
+      params.splice(2, 0, 0);
+    }
     const allTasks = projectController.getCurrentProject().todos;
     allTasks[index].modify(params[0], params[1], params[2], params[3]);
     PubSub.publish('editTodo');

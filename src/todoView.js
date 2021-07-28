@@ -48,6 +48,7 @@ const todoDisplay = ([todo, index]) => {
   const todoTitle = document.createElement('label');
   const todoDate = document.createElement('p');
   const todoDesc = document.createElement('p');
+  const checkboxWrapper = document.createElement('div');
   const todoCheckbox = document.createElement('input');
   const checkmark = document.createElement('span');
   const todoFooter = document.createElement('footer');
@@ -55,6 +56,7 @@ const todoDisplay = ([todo, index]) => {
   const editBtn = document.createElement('div');
   const overlay = document.querySelector('.overlay');
 
+  checkboxWrapper.classList.add('flex', 'checkbox-wrapper');
   deleteBtn.classList.add('todo-action');
   editBtn.classList.add('todo-action');
   deleteBtn.innerHTML = `<i class="fas fa-trash"></i>
@@ -87,7 +89,7 @@ const todoDisplay = ([todo, index]) => {
   todoTitle.setAttribute('data-content', todo.title);
 
   todoBox.classList.add('flex-col', 'todo-item');
-  if (todo.priority === 1) {
+  if (todo.priority == 1) {
     todoBox.classList.add('low');
   } else if (todo.priority == 2) {
     todoBox.classList.add('medium');
@@ -111,7 +113,9 @@ const todoDisplay = ([todo, index]) => {
 
   todoDesc.textContent = todo.desc;
 
-  todoHeader.append(todoCheckbox, todoTitle, checkmark, todoDate);
+  checkboxWrapper.append(todoCheckbox, todoTitle);
+
+  todoHeader.append(checkboxWrapper, checkmark, todoDate);
   todoFooter.append(editBtn, deleteBtn);
   todoBox.append(todoHeader, todoDesc, todoFooter);
   todoBox.addEventListener('dblclick', () => {

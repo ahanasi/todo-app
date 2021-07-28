@@ -1,6 +1,17 @@
 import Todo from './todo';
 import PubSub from './pubsub';
 
+const isSelected = () => {
+  const rbs = document.querySelectorAll('input[name="taskPriority"]');
+  let selectedValue;
+  for (let i = 0; i < rbs.length; i++) {
+    if (rbs[i].checked) {
+      return true;
+    }
+  }
+  return false;
+};
+
 const todoForm = () => {
   const todoFormWrapper = document.createElement('section');
   todoFormWrapper.classList.add('box');
@@ -41,6 +52,7 @@ const todoForm = () => {
   taskName.setAttribute('type', 'text');
   taskName.setAttribute('name', 'taskName');
   taskName.setAttribute('placeholder', 'New To-Do');
+  taskName.required = true;
 
   // Create label for task description
   const taskDescLabel = document.createElement('label');
@@ -84,9 +96,16 @@ const todoForm = () => {
   submitBtn.setAttribute('value', 'New Task');
   submitBtn.classList.add('ghost-button', 'text-center');
   submitBtn.addEventListener('click', (e) => {
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
     e.preventDefault();
     const formData = new FormData(form);
     const params = [...formData.values()];
+    if (!isSelected()) {
+      params.splice(2, 0, 0);
+    }
     const newTodo = new Todo(params[0], params[1], params[2], params[3]);
     PubSub.publish('addTodoToProject', newTodo);
     form.reset();
