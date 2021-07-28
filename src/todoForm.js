@@ -3,7 +3,6 @@ import PubSub from './pubsub';
 
 const isSelected = () => {
   const rbs = document.querySelectorAll('input[name="taskPriority"]');
-  let selectedValue;
   for (let i = 0; i < rbs.length; i++) {
     if (rbs[i].checked) {
       return true;

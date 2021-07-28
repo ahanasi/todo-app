@@ -9,7 +9,6 @@ const removeChildNodes = (parent) => {
 
 const isSelected = () => {
   const rbs = document.querySelectorAll('input[name="editTaskPriority"]');
-  let selectedValue;
   for (let i = 0; i < rbs.length; i++) {
     if (rbs[i].checked) {
       return true;
