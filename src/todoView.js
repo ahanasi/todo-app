@@ -1,3 +1,6 @@
+/* eslint-disable no-param-reassign */
+/* eslint-disable no-unused-vars */
+/* eslint-disable eqeqeq */
 import { format } from 'date-fns';
 import '@fortawesome/fontawesome-free/js/fontawesome';
 import { faFontAwesomeFlag } from '@fortawesome/fontawesome-free/js/brands';

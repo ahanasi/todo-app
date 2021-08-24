@@ -3,7 +3,7 @@ import PubSub from './pubsub';
 
 const isSelected = () => {
   const rbs = document.querySelectorAll('input[name="taskPriority"]');
-  for (let i = 0; i < rbs.length; i++) {
+  for (let i = 0; i < rbs.length; i + 1) {
     if (rbs[i].checked) {
       return true;
     }
@@ -13,7 +13,7 @@ const isSelected = () => {
 
 const todoForm = () => {
   const todoFormWrapper = document.createElement('section');
-  todoFormWrapper.classList.add('box');
+  todoFormWrapper.classList.add('box', 'form-wrapper');
 
   const createRadioElement = (name, value) => {
     const radioInput = document.createElement('input');

@@ -68,9 +68,12 @@ const populateStorage = () => {
 
   const fakeDate = new Date();
 
-  const newTodo1 = new Todo('Title', 'Desc', 2, fakeDate.toISOString().slice(0, 10));
-
-  PubSub.publish('changeCurrentProject', 0);
+  const newTodo1 = new Todo(
+    'Buy groceries!',
+    '2 Onions, 1 Tomato',
+    2,
+    fakeDate.toISOString().slice(0, 10)
+  );
   PubSub.publish('addTodoToProject', newTodo1);
 };
 
